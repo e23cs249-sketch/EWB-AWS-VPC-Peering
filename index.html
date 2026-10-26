@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f8ff">
+    <meta name="description" content="A colorful showcase of an AWS VPC peering lab, its architecture, implementation, and historical connectivity tests.">
+    <title>AWS VPC Peering — Secure Private Network Connectivity</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <nav class="nav-wrap container" aria-label="Main navigation">
+        <a class="brand" href="#top" aria-label="AWS VPC Peering home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none"><path d="M12 20.5 20 12l8 8.5-8 8-8-8Z" stroke="currentColor" stroke-width="2.5"/><circle cx="12" cy="20.5" r="3" fill="currentColor"/><circle cx="28" cy="20.5" r="3" fill="currentColor"/><circle cx="20" cy="12" r="3" fill="currentColor"/><circle cx="20" cy="28.5" r="3" fill="currentColor"/></svg>
+          </span>
+          <span class="brand-text">cloud<span>links</span></span>
+        </a>
+        <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="nav-menu" id="primary-menu">
+          <a href="#overview">Overview</a>
+          <a href="#architecture">Architecture</a>
+          <a href="#implementation">Implementation</a>
+          <a href="#testing">Testing</a>
+          <a class="nav-report" href="#report">View report <span aria-hidden="true">↗</span></a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero section-shell">
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <div class="eyebrow"><span class="pulse-dot"></span> CLOUD NETWORKING · SYDNEY REGION</div>
+            <h1>Connecting private clouds.<br><span class="gradient-text">Securely.</span></h1>
+            <p class="hero-lede">An AWS VPC Peering project demonstrating private network connectivity between two isolated Virtual Private Clouds using route tables, security groups, and private EC2 instances.</p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#architecture">Explore project <span aria-hidden="true">→</span></a>
+              <a class="button button-secondary" href="assets/Rajalakshmi_S_EWB_VPC_Peering.pdf" target="_blank" rel="noopener">Read project report <span aria-hidden="true">↗</span></a>
+            </div>
+            <div class="hero-tags" aria-label="Project topics">
+              <span>AWS Networking</span><span>VPC Peering</span><span>EC2</span><span>Private IPv4</span>
+            </div>
+            <p class="region-note"><span aria-hidden="true">⌖</span> Sydney · <code>ap-southeast-2</code></p>
+          </div>
+          <div class="hero-art reveal" aria-label="Illustration of two private networks connected by VPC peering">
+            <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+            <div class="art-cloud cloud-one"><span>VPC A</span><i></i><i></i><i></i></div>
+            <div class="art-cloud cloud-two"><span>VPC B</span><i></i><i></i></div>
+            <div class="art-link"><span>PEERING</span><b></b></div>
+            <div class="art-caption"><span class="caption-icon">↔</span><span><strong>Private routes</strong><small>No public path between apps</small></span></div>
+            <span class="float-spark spark-a">✦</span><span class="float-spark spark-b">✧</span>
+          </div>
+        </div>
+        <div class="hero-bottom container">
+          <div class="hero-stat"><strong>2</strong><span>isolated VPCs</span></div>
+          <div class="stat-rule"></div>
+          <div class="hero-stat"><strong>3</strong><span>private EC2 instances</span></div>
+          <div class="stat-rule"></div>
+          <div class="hero-stat"><strong>0%</strong><span>packet loss in lab tests</span></div>
+          <span class="historical-badge"><span></span> Completed lab · resources cleaned up</span>
+        </div>
+      </section>
+
+      <section class="section container" id="overview">
+        <div class="section-heading reveal">
+          <span class="section-kicker">THE PROJECT</span>
+          <h2>Two networks. <span class="gradient-text">One private path.</span></h2>
+          <p>A hands-on networking lab exploring how separate cloud networks can communicate without exposing application servers to the public internet.</p>
+        </div>
+        <div class="overview-grid">
+          <article class="info-card card-lilac reveal">
+            <span class="card-icon icon-violet" aria-hidden="true">✦</span>
+            <span class="card-label">01 / THE CHALLENGE</span>
+            <h3>Connect without exposure</h3>
+            <p>Two VPCs have separate private IPv4 ranges and need controlled communication—without public IP addresses on the application instances.</p>
+          </article>
+          <article class="info-card card-mint reveal">
+            <span class="card-icon icon-mint" aria-hidden="true">⌁</span>
+            <span class="card-label">02 / THE SOLUTION</span>
+            <h3>Peer. Route. Control.</h3>
+            <p>Configure VPC peering, routes in both directions, and security group rules that allow only the required traffic.</p>
+          </article>
+          <article class="info-card card-peach reveal">
+            <span class="card-icon icon-coral" aria-hidden="true">✓</span>
+            <span class="card-label">03 / THE OUTCOME</span>
+            <h3>Private traffic verified</h3>
+            <p>During the lab, SSH through the bastion and bidirectional ICMP connectivity between App-A and App-B were successfully tested.</p>
+          </article>
+        </div>
+        <p class="notice"><span aria-hidden="true">ⓘ</span> These are historical lab results. The AWS resources have since been cleaned up; this website is a project showcase, not a live AWS dashboard.</p>
+      </section>
+
+      <section class="section architecture-section" id="architecture">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="section-kicker">NETWORK MAP</span>
+            <h2>Architecture, <span class="gradient-text">at a glance.</span></h2>
+            <p>Two non-overlapping VPCs linked through a private peering connection. Only the bastion host sits in a public subnet.</p>
+          </div>
+          <div class="architecture-card reveal">
+            <div class="diagram-topline">
+              <span class="diagram-label"><span class="diagram-live-dot"></span> LAB ARCHITECTURE</span>
+              <span class="diagram-region">AWS · ap-southeast-2</span>
+            </div>
+            <div class="internet-path">
+              <span class="internet-node"><span aria-hidden="true">◎</span> Internet</span>
+              <span class="path-dash" aria-hidden="true"></span>
+              <span class="gateway-node"><span aria-hidden="true">↗</span> Internet Gateway</span>
+              <span class="path-dash" aria-hidden="true"></span>
+              <span class="path-caption">SSH entry to bastion only</span>
+            </div>
+            <div class="vpc-layout">
+              <article class="vpc-panel vpc-a">
+                <header class="vpc-header">
+                  <span class="vpc-icon">A</span>
+                  <span><strong>ewb-vpc-a</strong><small>VPC A · <code>10.10.0.0/16</code></small></span>
+                  <span class="vpc-type">PUBLIC + PRIVATE</span>
+                </header>
+                <div class="subnet subnet-public">
+                  <div class="subnet-heading"><span class="subnet-dot"></span><span><strong>ewb-a-public</strong><small>Public subnet · <code>10.10.1.0/24</code></small></span></div>
+                  <div class="instance instance-bastion"><span class="instance-icon">▣</span><span><strong>Bastion host</strong><small>Private · <code>10.10.1.23</code></small><small>Public during lab · <code>3.27.192.70</code></small></span><span class="host-tag">JUMP</span></div>
+                </div>
+                <div class="ssh-route"><span>SSH / ProxyJump</span><span aria-hidden="true">↓</span></div>
+                <div class="subnet subnet-private">
+                  <div class="subnet-heading"><span class="subnet-dot"></span><span><strong>ewb-a-private</strong><small>Private subnet · <code>10.10.2.0/24</code></small></span></div>
+                  <div class="instance"><span class="instance-icon">▣</span><span><strong>App-A</strong><small>Private IP · <code>10.10.2.10</code></small></span><span class="host-tag">EC2</span></div>
+                </div>
+              </article>
+              <div class="peer-column" aria-label="VPC peering connection">
+                <span class="peer-chip">VPC PEERING</span>
+                <div class="peer-line"><span class="peer-end"></span><span class="peer-center">↔</span><span class="peer-end"></span></div>
+                <span class="peer-name">ewb-a-b-peer</span>
+                <code class="peer-id">pcx-0de08c729abc71fa1</code>
+                <span class="peer-status"><span></span> Active during testing</span>
+              </div>
+              <article class="vpc-panel vpc-b">
+                <header class="vpc-header">
+                  <span class="vpc-icon">B</span>
+                  <span><strong>ewb-vpc-b</strong><small>VPC B · <code>10.20.0.0/16</code></small></span>
+                  <span class="vpc-type private-type">PRIVATE ONLY</span>
+                </header>
+                <div class="subnet subnet-private subnet-b">
+                  <div class="subnet-heading"><span class="subnet-dot"></span><span><strong>ewb-b-private</strong><small>Private subnet · <code>10.20.1.0/24</code></small></span></div>
+                  <div class="instance"><span class="instance-icon">▣</span><span><strong>App-B</strong><small>Private IP · <code>10.20.1.10</code></small><small>No public IP</small></span><span class="host-tag">EC2</span></div>
+                </div>
+                <div class="vpc-footnote"><span aria-hidden="true">↔</span> Private route to VPC A via peering</div>
+              </article>
+            </div>
+            <div class="diagram-legend">
+              <span><i class="legend-dot dot-public"></i>Public subnet</span><span><i class="legend-dot dot-private"></i>Private subnet</span><span><i class="legend-dot dot-ec2"></i>EC2 instance</span><span><i class="legend-dot dot-peer"></i>VPC peering</span>
+            </div>
+          </div>
+          <div class="diagram-footnote"><span>↗</span><span><strong>SSH:</strong> Internet → IGW → Bastion → App-A or App-B via ProxyJump. <strong>App-A ↔ App-B:</strong> private IPv4 routes through VPC peering—not the internet.</span></div>
+        </div>
+      </section>
+
+      <section class="section container" id="implementation">
+        <div class="section-heading reveal">
+          <span class="section-kicker">HOW IT CAME TOGETHER</span>
+          <h2>Built in <span class="gradient-text">seven steps.</span></h2>
+          <p>A console-based lab, from network foundations through cleanup and evidence capture.</p>
+        </div>
+        <ol class="timeline">
+          <li class="timeline-item reveal"><span class="timeline-number">01</span><div><h3>Network foundation</h3><p>Created two VPCs with non-overlapping CIDR ranges.</p></div></li>
+          <li class="timeline-item reveal"><span class="timeline-number">02</span><div><h3>Subnet design</h3><p>Created the required public and private subnets.</p></div></li>
+          <li class="timeline-item reveal"><span class="timeline-number">03</span><div><h3>Routing configuration</h3><p>Configured route tables and return routes for the remote VPC CIDRs.</p></div></li>
+          <li class="timeline-item reveal"><span class="timeline-number">04</span><div><h3>VPC peering</h3><p>Created and activated the peering connection between the VPCs.</p></div></li>
+          <li class="timeline-item reveal"><span class="timeline-number">05</span><div><h3>Security controls</h3><p>Configured security groups for SSH and ICMP traffic.</p></div></li>
+          <li class="timeline-item reveal"><span class="timeline-number">06</span><div><h3>Connectivity validation</h3><p>Tested SSH access and bidirectional private-IP ping.</p></div></li>
+          <li class="timeline-item reveal"><span class="timeline-number">07</span><div><h3>Cleanup</h3><p>Saved the required evidence, then cleaned up the lab resources.</p></div></li>
+        </ol>
+      </section>
+
+      <section class="section testing-section" id="testing">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="section-kicker">CONNECTIVITY CHECKS</span>
+            <h2>Tested. <span class="gradient-text">Verified.</span></h2>
+            <p>Evidence from the completed lab confirms expected access—and a security rule behaving as intended.</p>
+          </div>
+          <div class="tests-grid">
+            <article class="test-card reveal">
+              <div class="test-top"><span class="test-icon test-green">↗</span><span class="result-pill"><i></i> SUCCESS</span></div>
+              <span class="test-type">TEST 01 · SSH</span><h3>Bastion to App-B</h3>
+              <p>Connected to App-B using the configured SSH host alias and bastion ProxyJump.</p>
+              <div class="terminal-line"><span>$</span> ssh app-b <small>→ 10.20.1.10</small></div>
+              <div class="test-result">Successful during the lab</div>
+            </article>
+            <article class="test-card reveal">
+              <div class="test-top"><span class="test-icon test-blue">→</span><span class="result-pill"><i></i> SUCCESS</span></div>
+              <span class="test-type">TEST 02 · ICMP</span><h3>App-A → App-B</h3>
+              <p>Private ping from <code>10.10.2.10</code> to <code>10.20.1.10</code>.</p>
+              <div class="terminal-line"><span>$</span> ping 10.20.1.10</div>
+              <div class="test-result"><strong>4 received</strong><span>0% packet loss</span></div>
+            </article>
+            <article class="test-card reveal">
+              <div class="test-top"><span class="test-icon test-violet">←</span><span class="result-pill"><i></i> SUCCESS</span></div>
+              <span class="test-type">TEST 03 · ICMP</span><h3>App-B → App-A</h3>
+              <p>Return-direction ping from <code>10.20.1.10</code> to <code>10.10.2.10</code>.</p>
+              <div class="terminal-line"><span>$</span> ping 10.10.2.10</div>
+              <div class="test-result"><strong>4 received</strong><span>0% packet loss</span></div>
+            </article>
+            <article class="test-card test-card-control reveal">
+              <div class="test-top"><span class="test-icon test-amber">⌁</span><span class="result-pill result-controlled"><i></i> EXPECTED BLOCK</span></div>
+              <span class="test-type">TEST 04 · SECURITY GROUP</span><h3>Controlled failure</h3>
+              <p>Temporarily removed App-B's inbound ICMP Echo Request rule for <code>10.10.2.10/32</code>.</p>
+              <div class="terminal-line terminal-warn"><span>$</span> ping 10.20.1.10 <small>→ blocked</small></div>
+              <div class="test-result"><strong>100% loss</strong><span>Rule restored; connectivity re-verified</span></div>
+            </article>
+          </div>
+          <p class="historical-note"><span aria-hidden="true">◷</span> Historical lab results only. AWS infrastructure has since been cleaned up; this site does not connect to the instances.</p>
+        </div>
+      </section>
+
+      <section class="section container" id="concepts">
+        <div class="section-heading reveal">
+          <span class="section-kicker">THE BUILDING BLOCKS</span>
+          <h2>Cloud networking, <span class="gradient-text">made approachable.</span></h2>
+          <p>Quick explanations of the ideas behind this project.</p>
+        </div>
+        <div class="concept-grid">
+          <details class="concept-card reveal"><summary><span class="concept-symbol symbol-violet">◈</span><span><strong>VPC isolation</strong><small>Your own logical network in AWS</small></span><b>+</b></summary><p>A Virtual Private Cloud is an isolated network space where you choose IP ranges, subnets, and traffic rules.</p></details>
+          <details class="concept-card reveal"><summary><span class="concept-symbol symbol-blue">⌂</span><span><strong>Public vs. private subnets</strong><small>Different routes, different exposure</small></span><b>+</b></summary><p>A public subnet has a route to an internet gateway. A private subnet does not provide direct inbound internet access to its instances.</p></details>
+          <details class="concept-card reveal"><summary><span class="concept-symbol symbol-mint">⇄</span><span><strong>VPC peering</strong><small>A private link between VPCs</small></span><b>+</b></summary><p>Peering lets two VPCs exchange traffic using private IP addresses, provided the CIDR ranges do not overlap and routes allow it.</p></details>
+          <details class="concept-card reveal"><summary><span class="concept-symbol symbol-coral">↗</span><span><strong>Routes & return routes</strong><small>Two-way directions matter</small></span><b>+</b></summary><p>Each subnet's route table needs a destination for the remote VPC CIDR via the peering connection. Both sides need routes.</p></details>
+          <details class="concept-card reveal"><summary><span class="concept-symbol symbol-amber">⬡</span><span><strong>Security groups</strong><small>Stateful virtual firewalls</small></span><b>+</b></summary><p>Security groups control allowed inbound and outbound traffic for instances. Stateful rules allow response traffic for permitted connections.</p></details>
+          <details class="concept-card reveal"><summary><span class="concept-symbol symbol-blue">⇢</span><span><strong>Bastion & SSH ProxyJump</strong><small>A controlled jump point</small></span><b>+</b></summary><p>A bastion host provides an SSH entry point. ProxyJump forwards SSH through it to a private host without making that host public.</p></details>
+          <details class="concept-card reveal"><summary><span class="concept-symbol symbol-violet">⌖</span><span><strong>Private IPv4</strong><small>Addressing inside networks</small></span><b>+</b></summary><p>Private IP addresses are used for communication within connected networks. They are not directly routable on the public internet.</p></details>
+          <details class="concept-card reveal"><summary><span class="concept-symbol symbol-mint">◎</span><span><strong>ICMP ping</strong><small>A simple reachability check</small></span><b>+</b></summary><p>Ping sends ICMP Echo Requests and listens for replies. It helps verify a network path, but it does not prove every application port is reachable.</p></details>
+        </div>
+      </section>
+
+      <section class="section outcomes-section">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="section-kicker">WHAT I LEARNED</span>
+            <h2>Skills that <span class="gradient-text">connect.</span></h2>
+          </div>
+          <div class="outcome-grid">
+            <div class="outcome-card outcome-purple reveal"><span>01</span><strong>Designing network address ranges</strong><i>↗</i></div>
+            <div class="outcome-card outcome-blue reveal"><span>02</span><strong>Configuring subnet associations and routes</strong><i>⌁</i></div>
+            <div class="outcome-card outcome-mint reveal"><span>03</span><strong>Understanding VPC peering traffic flow</strong><i>⇄</i></div>
+            <div class="outcome-card outcome-peach reveal"><span>04</span><strong>Applying least-privilege security rules</strong><i>⬡</i></div>
+            <div class="outcome-card outcome-yellow reveal"><span>05</span><strong>Validating network connectivity</strong><i>✓</i></div>
+            <div class="outcome-card outcome-lavender reveal"><span>06</span><strong>Documenting and cleaning up resources</strong><i>✧</i></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="report-section section container" id="report">
+        <div class="report-card reveal">
+          <div class="report-decoration decoration-one"></div><div class="report-decoration decoration-two"></div>
+          <div class="report-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none"><path d="M13 6h15l9 9v26H13V6Z" fill="white" fill-opacity=".22" stroke="white" stroke-width="2"/><path d="M28 6v10h9M19 25h12M19 31h12M19 37h8" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="report-copy"><span class="report-kicker">THE FULL STORY</span><h2>AWS VPC Peering — Project Report</h2><p>Architecture, resource inventory, routing configuration, security rules, connectivity tests, and cleanup documentation.</p></div>
+          <div class="report-actions">
+            <a class="button report-button" href="assets/Rajalakshmi_S_EWB_VPC_Peering.pdf" target="_blank" rel="noopener">View PDF report <span aria-hidden="true">↗</span></a>
+            <a class="report-download" href="assets/Rajalakshmi_S_EWB_VPC_Peering.pdf" download>Download report <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-main">
+        <div class="footer-brand">
+          <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">⌁</span><span class="brand-text">cloud<span>links</span></span></a>
+          <p>AWS VPC Peering Project<br>Cloud Networking · EC2 · Routing · Security</p>
+        </div>
+        <div class="footer-detail"><span class="footer-label">REGION</span><strong>Sydney <code>ap-southeast-2</code></strong></div>
+        <div class="footer-detail"><span class="footer-label">PROJECT REPOSITORY</span><a class="repo-placeholder" href="#repository" id="repository" aria-label="Replace with your GitHub repository URL">Add your GitHub link ↗</a></div>
+        <a class="back-top" href="#top">Back to top <span aria-hidden="true">↑</span></a>
+      </div>
+      <div class="container footer-bottom"><span>Educational project · AWS infrastructure has been cleaned up.</span><span>Designed with care <span class="footer-heart">♥</span></span></div>
+    </footer>
+  </body>
+</html>
